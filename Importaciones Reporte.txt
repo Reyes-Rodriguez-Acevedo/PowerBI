@@ -1,0 +1,7 @@
+let
+    Origen = Excel.Workbook(File.Contents("C:\Users\Reyes\Documents\Data Intelligence\Aduanas\Importaciones\ImportacionesISemAño2017.xlsx"), null, true),
+    ReporteImportaciones_Sheet = Origen{[Item="ReporteImportaciones",Kind="Sheet"]}[Data],
+    #"Encabezados promovidos" = Table.PromoteHeaders(ReporteImportaciones_Sheet, [PromoteAllScalars=true]),
+    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"AÑO", Int64.Type}, {"MES", type text}, {"REGIONINGRESO", type text}, {"PAISORIGEN", type text}, {"VIATRANSPORTE", type text}, {"PUERTODESEMBARQUE", type text}, {"ADUANA", type text}, {"SECTOR", type text}, {"PRODUCTO", type text}, {"CODARANCELARIO", Int64.Type}, {"MONTOCIF", type number}, {"PESOTONELADAS", type number}, {"CANTIDAD", type number}, {"UNIDADMEDIDA", type text}})
+in
+    #"Tipo cambiado"
